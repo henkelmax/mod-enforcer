@@ -1,0 +1,6 @@
+{
+  "message.modenforcer.mismatched_mod": "%s - %s",
+  "message.modenforcer.missing_mod": "Missing",
+  "message.modenforcer.version_mismatch": "Your version: %s -> Server version: %s",
+  "message.modenforcer.mismatching_mods": "Mismatching mods"
+}
