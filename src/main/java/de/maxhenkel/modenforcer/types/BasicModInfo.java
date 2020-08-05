@@ -37,4 +37,5 @@ public class BasicModInfo {
         }
         return version;
     }
+
 }

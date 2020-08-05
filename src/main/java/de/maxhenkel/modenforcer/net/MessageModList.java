@@ -1,12 +1,11 @@
 package de.maxhenkel.modenforcer.net;
 
+import de.maxhenkel.corelib.net.Message;
 import de.maxhenkel.modenforcer.ServerEvents;
 import de.maxhenkel.modenforcer.types.BasicModInfo;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.*;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -30,6 +29,11 @@ public class MessageModList implements Message<MessageModList> {
     }
 
     @Override
+    public Dist getExecutingSide() {
+        return Dist.DEDICATED_SERVER;
+    }
+
+    @Override
     public void executeServerSide(NetworkEvent.Context context) {
         List<Pair<BasicModInfo, BasicModInfo>> mismatches = new ArrayList<>();
         for (ModInfo i : ModList.get().getMods()) {
@@ -50,27 +54,22 @@ public class MessageModList implements Message<MessageModList> {
             return;
         }
 
-        ITextComponent text = new TranslationTextComponent("message.modenforcer.mismatching_mods");
-        text.appendText("\n");
+        IFormattableTextComponent text = new TranslationTextComponent("message.modenforcer.mismatching_mods");
+        text.func_240702_b_("\n");
 
         for (Pair<BasicModInfo, BasicModInfo> pair : mismatches) {
-            text.appendText("\n");
+            text.func_240702_b_("\n");
             ITextComponent comp;
             if (pair.getRight() == null) {
-                comp = new TranslationTextComponent("message.modenforcer.missing_mod").applyTextStyle(TextFormatting.RED);
+                comp = new TranslationTextComponent("message.modenforcer.missing_mod").func_240699_a_(TextFormatting.RED);
             } else {
-                comp = new TranslationTextComponent("message.modenforcer.version_mismatch", new StringTextComponent(pair.getRight().getVersion()).applyTextStyle(TextFormatting.RED), new StringTextComponent(pair.getLeft().getVersion()).applyTextStyle(TextFormatting.GREEN)).applyTextStyle(TextFormatting.GRAY);
+                comp = new TranslationTextComponent("message.modenforcer.version_mismatch", new StringTextComponent(pair.getRight().getVersion()).func_240699_a_(TextFormatting.RED), new StringTextComponent(pair.getLeft().getVersion()).func_240699_a_(TextFormatting.GREEN)).func_240699_a_(TextFormatting.GRAY);
             }
 
-            text.appendSibling(new TranslationTextComponent("message.modenforcer.mismatched_mod", new StringTextComponent(pair.getLeft().getName()).applyTextStyle(TextFormatting.WHITE), comp).applyTextStyle(TextFormatting.GRAY));
+            text.func_230529_a_(new TranslationTextComponent("message.modenforcer.mismatched_mod", new StringTextComponent(pair.getLeft().getName()).func_240699_a_(TextFormatting.WHITE), comp).func_240699_a_(TextFormatting.GRAY));
         }
 
         context.getSender().connection.disconnect(text);
-    }
-
-    @Override
-    public void executeClientSide(NetworkEvent.Context context) {
-
     }
 
     @Override
@@ -93,4 +92,5 @@ public class MessageModList implements Message<MessageModList> {
             buf.writeString(modInfo.getVersion());
         }
     }
+
 }

@@ -21,7 +21,6 @@ public class ClientEvents {
         if (serverData != null) {
             Main.SIMPLE_CHANNEL.sendToServer(new MessageModList(ModList.get().getMods()));
         }
-
     }
 
 }

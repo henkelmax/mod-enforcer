@@ -56,7 +56,7 @@ public class ServerEvents {
             return;
         }
 
-        if (System.currentTimeMillis() - timestamp > Config.PLAYER_TIMEOUT.get().longValue()) {
+        if (System.currentTimeMillis() - timestamp > Main.SERVER_CONFIG.playerTimeout.get().longValue()) {
             player.connection.disconnect(new StringTextComponent("Missing mods"));
         }
     }
