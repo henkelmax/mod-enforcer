@@ -1,7 +1,8 @@
 modLoader="javafml"
 loaderVersion="${mod_forge_version}"
-issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/xxx/issues"
-displayURL="https://www.curseforge.com/minecraft/mc-mods/xxx"
+license="All rights reserved"
+issueTrackerURL="https://github.com/henkelmax/mod-enforcer/issues"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/mod-enforcer"
 # logoFile="modenforcer.png"
 # credits=""
 [[mods]]
