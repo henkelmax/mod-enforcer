@@ -55,18 +55,18 @@ public class MessageModList implements Message<MessageModList> {
         }
 
         IFormattableTextComponent text = new TranslationTextComponent("message.modenforcer.mismatching_mods");
-        text.func_240702_b_("\n");
+        text.appendString("\n");
 
         for (Pair<BasicModInfo, BasicModInfo> pair : mismatches) {
-            text.func_240702_b_("\n");
+            text.appendString("\n");
             ITextComponent comp;
             if (pair.getRight() == null) {
-                comp = new TranslationTextComponent("message.modenforcer.missing_mod").func_240699_a_(TextFormatting.RED);
+                comp = new TranslationTextComponent("message.modenforcer.missing_mod").mergeStyle(TextFormatting.RED);
             } else {
-                comp = new TranslationTextComponent("message.modenforcer.version_mismatch", new StringTextComponent(pair.getRight().getVersion()).func_240699_a_(TextFormatting.RED), new StringTextComponent(pair.getLeft().getVersion()).func_240699_a_(TextFormatting.GREEN)).func_240699_a_(TextFormatting.GRAY);
+                comp = new TranslationTextComponent("message.modenforcer.version_mismatch", new StringTextComponent(pair.getRight().getVersion()).mergeStyle(TextFormatting.RED), new StringTextComponent(pair.getLeft().getVersion()).mergeStyle(TextFormatting.GREEN)).mergeStyle(TextFormatting.GRAY);
             }
 
-            text.func_230529_a_(new TranslationTextComponent("message.modenforcer.mismatched_mod", new StringTextComponent(pair.getLeft().getName()).func_240699_a_(TextFormatting.WHITE), comp).func_240699_a_(TextFormatting.GRAY));
+            text.append(new TranslationTextComponent("message.modenforcer.mismatched_mod", new StringTextComponent(pair.getLeft().getName()).mergeStyle(TextFormatting.WHITE), comp).mergeStyle(TextFormatting.GRAY));
         }
 
         context.getSender().connection.disconnect(text);
