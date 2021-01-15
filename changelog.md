@@ -1,1 +1,1 @@
-- Fixed getting kicked in single player
+- Updated to 1.16.5
