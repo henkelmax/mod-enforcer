@@ -28,7 +28,7 @@ public class ServerEvents {
         }
         ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
 
-        players.put(player.getUniqueID(), System.currentTimeMillis());
+        players.put(player.getUUID(), System.currentTimeMillis());
     }
 
     @SubscribeEvent
@@ -38,7 +38,7 @@ public class ServerEvents {
         }
         ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
 
-        players.remove(player.getUniqueID());
+        players.remove(player.getUUID());
     }
 
     @SubscribeEvent
@@ -51,7 +51,7 @@ public class ServerEvents {
         }
         ServerPlayerEntity player = (ServerPlayerEntity) event.player;
 
-        Long timestamp = players.get(player.getUniqueID());
+        Long timestamp = players.get(player.getUUID());
         if (timestamp == null) {
             return;
         }
@@ -62,7 +62,7 @@ public class ServerEvents {
     }
 
     public void setPlayerAuthorized(PlayerEntity playerEntity) {
-        players.remove(playerEntity.getUniqueID());
+        players.remove(playerEntity.getUUID());
     }
 
     public static ServerEvents instance() {

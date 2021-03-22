@@ -55,18 +55,18 @@ public class MessageModList implements Message<MessageModList> {
         }
 
         IFormattableTextComponent text = new TranslationTextComponent("message.modenforcer.mismatching_mods");
-        text.appendString("\n");
+        text.append("\n");
 
         for (Pair<BasicModInfo, BasicModInfo> pair : mismatches) {
-            text.appendString("\n");
+            text.append("\n");
             ITextComponent comp;
             if (pair.getRight() == null) {
-                comp = new TranslationTextComponent("message.modenforcer.missing_mod").mergeStyle(TextFormatting.RED);
+                comp = new TranslationTextComponent("message.modenforcer.missing_mod").withStyle(TextFormatting.RED);
             } else {
-                comp = new TranslationTextComponent("message.modenforcer.version_mismatch", new StringTextComponent(pair.getRight().getVersion()).mergeStyle(TextFormatting.RED), new StringTextComponent(pair.getLeft().getVersion()).mergeStyle(TextFormatting.GREEN)).mergeStyle(TextFormatting.GRAY);
+                comp = new TranslationTextComponent("message.modenforcer.version_mismatch", new StringTextComponent(pair.getRight().getVersion()).withStyle(TextFormatting.RED), new StringTextComponent(pair.getLeft().getVersion()).withStyle(TextFormatting.GREEN)).withStyle(TextFormatting.GRAY);
             }
 
-            text.append(new TranslationTextComponent("message.modenforcer.mismatched_mod", new StringTextComponent(pair.getLeft().getName()).mergeStyle(TextFormatting.WHITE), comp).mergeStyle(TextFormatting.GRAY));
+            text.append(new TranslationTextComponent("message.modenforcer.mismatched_mod", new StringTextComponent(pair.getLeft().getName()).withStyle(TextFormatting.WHITE), comp).withStyle(TextFormatting.GRAY));
         }
 
         context.getSender().connection.disconnect(text);
@@ -77,7 +77,7 @@ public class MessageModList implements Message<MessageModList> {
         int count = buf.readInt();
         mods = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            mods.add(new BasicModInfo(buf.readString(256), buf.readString(256), buf.readString(256)));
+            mods.add(new BasicModInfo(buf.readUtf(256), buf.readUtf(256), buf.readUtf(256)));
         }
         return this;
     }
@@ -87,9 +87,9 @@ public class MessageModList implements Message<MessageModList> {
         buf.writeInt(mods.size());
 
         for (BasicModInfo modInfo : mods) {
-            buf.writeString(modInfo.getName());
-            buf.writeString(modInfo.getModid());
-            buf.writeString(modInfo.getVersion());
+            buf.writeUtf(modInfo.getName());
+            buf.writeUtf(modInfo.getModid());
+            buf.writeUtf(modInfo.getVersion());
         }
     }
 
