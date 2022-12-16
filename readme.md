@@ -2,9 +2,6 @@
 
 ## Links
 - [CurseForge](https://www.curseforge.com/minecraft/mc-mods/mod-enforcer)
-- [ModRepo](https://modrepo.de/minecraft/modenforcer/overview)
-- [GitHub](https://github.com/henkelmax/mod-enforcer)
-- [FAQ](https://modrepo.de/minecraft/modenforcer/faq)
 
 ---
 
